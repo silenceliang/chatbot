@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+	
+<head>
+<title>Chatbot About Sleep</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="css/memo.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<style> 
+p  {position:absolute; bottom:215px; right:240px;} 
+p1 {position:absolute;bottom:203px; right:18px; z-index:-1;}
+p2 {position:absolute;bottom:35px; left:265px; z-index:0;}
+p3 {position:absolute;left:20px; bottom:10px;}
+p4 {position:absolute;right:250px; bottom:231px;}
+
+#main-content textarea{
+	width:100%;
+	height:100%; 
+	box-sizing: border-box;
+}
+
+.mwt_border{
+	width:550px;
+	height:80px;
+	text-align:left;
+	background:pink;
+	position:absolute;
+	border: solid 1px pink;
+	margin-left:400px;
+	margin-top:50px;
+	/* bottom: 203px; */
+	right:30px;
+	padding: 5px;
+	padding:50px;
+	z-index:-1;
+}
+.mwt_border .arrow_r_int{
+	width:0px;
+	height:0px;
+	border-width:15px;
+	border-style:solid;
+	border-color:transparent transparent transparent pink;
+	position:absolute;
+	top:20%;
+	right:-30px;
+}
+.mwt_border .arrow_r_out{
+	width:0px;
+	height:0px;
+	border-width:15px;
+	border-style:solid;
+	border-color:transparent transparent transparent pink;
+	position:absolute;
+	top:20%;
+	right:-29px;
+}
+
+.egg_border{
+	width:550px;
+	height:80px;
+	text-align:left;
+	background:#FFFF66;
+	position:absolute;
+	border: solid 1px #FFFF66;
+	margin-left:0px;
+	margin-top:20px;
+	left:300px;
+	/* bottom:25px; */
+	padding:50px;
+	z-index:10;
+	overflow-y: scroll;
+}
+
+
+.egg_border .arrow_l_int{
+	width:0px;
+	height:0px;
+	border-width:15px;
+	border-style:solid;
+	border-color:transparent #FFFF66 transparent  transparent ;
+	position:absolute;
+	top:20%;
+	left:-30px;
+}
+.egg_border .arrow_l_out{
+	width:0px;
+	height:0px;
+	border-width:15px;
+	border-style:solid;
+	border-color:transparent #FFFF66 transparent transparent ;
+	position:absolute;
+	top:20%;
+	left:-29px;
+}
+
+
+</style>
+
+<script language="javascript">
+
+		window.onload=function(){
+				var dt = new Date();
+				var hour = dt.getHours();
+				if(hour > 0 && hour <= 12)
+					document.getElementById("marquee").textContent = "Good Morning";
+				else
+					document.getElementById("marquee").textContent = "Good Night";
+			}
+		
+</script>
+
+<script src='js/ajax.js'></script>
+<script src='js/alarm.js'></script>
+</head>
+
+<body>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel"><span class="glyphicon glyphicon-time"></span>Set alarm clock! </h4>
+            </div>
+            <div class="modal-body" id="modal-id-text">
+					<div  class="container-fluid" id='top-area'>
+							<div id='youtube-container'></div>
+							Enter a youtube link as alarm:
+							<input type='text' id='youtubepath'></input>
+							<button class='btn-default' id='setYoutube'> ok </button><br />
+							Or select a local music file:
+							<input type='file'></input>		
+							<button class='top-button'>Settings</button>
+					</div>
+			</div>
+			<HR>
+            <ul id='alarm-list'>
+						<li id='add-button'>
+							<span style="cursor:pointer">Add...</span>
+						</li>
+
+			</ul>
+			<div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="getElementById('display_area').innerHTML = ''">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+<!-- Modal memo -->
+	  <div class="modal fade" id="myModal_memo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+			  <div class="modal-content">
+				<div class="modal-header">
+				  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				  <h4 class="modal-title"><span class="glyphicon glyphicon-pushpin"></span>Set Memo </h4>
+				</div>
+				<div id='memo_div' class="modal-body" id="modal-id-text">			
+					<div id="myDIV" class="header">
+							<h3 style="margin:5px">Memo</h3><br>
+							<input type="text" id="myInput" placeholder="Title...">
+							<span onclick="newElement()" class="addBtn">Add</span>
+						</div>
+						
+						<ul id="myUL">
+							<li>跑八千公里</li>
+							<li class="checked">做chatbot</li>
+							<li>回家</li>
+							<li>吃飯</li>
+
+						</ul>
+									</div>
+									<div class="modal-footer">
+									<button type="button" class="btn btn-primary" data-dismiss="modal" >Close</button>
+									</div>
+								</div>
+								</div>
+							</div>
+					
+
+
+<!-- 跑馬燈 -->
+<marquee id="marquee" height="50" scrollamount="3">
+	<font face="Arial Black" color="#ff9999" size="5">
+	Have a nice day!</font>
+	<img src="images/moonZzz.png" width="21" height="21">
+</marquee>
+
+ <div class='container' id='chatroom'>
+<!--	<div class="row">
+		<div class="col-sm-9">
+			<div id='send_response'  class="mwt_border">
+				<span class="arrow_r_int"></span>
+				<span class="arrow_r_out"></span>
+			</div>
+		</div>
+		<div  class="col-sm-1">
+				<img src="images/bear.png" width="207" height="195">
+		</div>
+	</div> -->
+
+	<!-- <div class="row">
+		<div  class="col-sm-3">
+				<div id="display_area" class="egg_border" >
+					<span class="arrow_l_int"></span>
+					<span class="arrow_l_out"></span>
+				</div>
+			</div>
+			<div  class="col-sm-10">
+					<img src="images/robot.png" width="232" height="230">
+			</div>
+	</div>
+</div> -->
+
+
+<nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
+<!-- 父层 -->  
+		<div id="main-content">
+		<div class='col-sm-9'>
+				<textarea name='txt' style="background-color:pink; border:1px black solid" type="text" id="content" placeholder='speaking...' ></textarea>
+		</div> 
+		<div class='col-sm-3'>
+				<button type="button"class="btn btn-danger btn-lg btn-block" id="btn" onclick="content.focus()">chat</button>
+		</div> 
+	</div>
+</nav>
+
+
+<a id='test'>
+
+<script src='js/memo.js'></script>
+
+</body>
+</html>
